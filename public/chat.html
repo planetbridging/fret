@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+      integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <title>ChatCord App</title>
+  </head>
+  <body>
+
+
+    <div class="card text-white bg-dark">
+      <div class="card-header">
+        
+        <header class="chat-header">
+          <div>
+            <h1 class="text-center"><i class="fas fa-smile"></i>F.R.E.T</h1>
+            <h5 class="card-title">Free online education training</h5>
+          </div>
+          <div id="Teacher">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+              Create question
+            </button>
+          </div>
+          <a id="leave-btn" class="btn">Leave Room</a>
+        </header>
+      </div>
+      <div class="card-body">
+        <div class="chat-container"></div>
+         
+          <main class="chat-main">
+            <div class="chat-sidebar">
+              <h3><i class="fas fa-comments"></i> Room Name:</h3>
+              <h2 id="room-name"></h2>
+              <h3><i class="fas fa-users"></i> Users</h3>
+              <ul id="users"></ul>
+            </div>
+            <div id="ChatMsgs" class="chat-messages"></div>
+          </main>
+         
+        </div>
+      </div>
+      <div class="card-footer text-muted">
+        <div class="chat-form-container">
+          <form id="chat-form">
+            <div class="input-group mb-3 bg-dark">
+              <input  id="msg"
+              type="text"
+              placeholder="Enter Message"
+              required
+              autocomplete="off" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-dark"><i class="fas fa-paper-plane"></i>Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    
+    
+    <!-- Modal -->
+    <div class="modal fade bg-secondary" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create question</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="RandomQuestion"></div>
+            
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputLevel">Level</label>
+              </div>
+              <select class="custom-select" id="inputLevel">
+              </select>
+              </div>
+
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputLevel">Number</label>
+                </div>
+                <select class="custom-select" id="inputNumbers">
+                </select>
+                </div>
+
+
+              <button type="button" class="btn btn-primary btn-block" onclick="random_generate()">Random</button>
+
+              <p id="NewQuestion" class="text-center">Q: </p>
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="send_question()">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade bg-secondary" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="answerModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content bg-dark">
+          <div class="modal-header">
+            <h5 class="modal-title" id="answerModalLabel">
+              <span id="QuestionNumber"></span>
+              <span>:</span>
+              <span id="Question"></span>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="RandomQuestion"></div>
+            <button type="button" class="btn btn-primary">Random</button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+      integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
